@@ -66,9 +66,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Error
         int idView = v.getId();
 
         if(idView == binding.btnLogin.getId()){
-            binding.btnLogin.setVisibility(View.INVISIBLE);
-            binding.pbLogin.setVisibility(View.VISIBLE);
-
+            showProgresBar();
             presenter.tryToLogin(binding.tilEmail, binding.tilPassword);
         }
 
@@ -103,17 +101,29 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Error
 
     @Override
     public void showError() {
-        binding.btnLogin.setVisibility(View.VISIBLE);
-        binding.pbLogin.setVisibility(View.INVISIBLE);
+        hideProgresBar();
     }
 
     @Override
     public void showMessageError(String message) {
-        binding.btnLogin.setVisibility(View.VISIBLE);
-        binding.pbLogin.setVisibility(View.INVISIBLE);
-        binding.tilEmail.getEditText().setText("");
-        binding.tilPassword.getEditText().setText("");
+        hideProgresBar();
+        clearFormLogin();
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
+    private void showProgresBar(){
+        binding.btnLogin.setVisibility(View.INVISIBLE);
+        binding.pbLogin.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgresBar(){
+        binding.btnLogin.setVisibility(View.VISIBLE);
+        binding.pbLogin.setVisibility(View.INVISIBLE);
+    }
+
+    private void clearFormLogin(){
+        binding.tilEmail.getEditText().setText("");
+        binding.tilPassword.getEditText().setText("");
+        binding.tilEmail.getEditText().requestFocus();
+    }
 }
