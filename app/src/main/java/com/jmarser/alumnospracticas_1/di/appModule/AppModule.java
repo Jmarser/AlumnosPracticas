@@ -5,6 +5,8 @@ import android.content.Context;
 
 import androidx.annotation.Nullable;
 
+import com.jmarser.alumnospracticas_1.albunes.view.AlbunesFragment;
+import com.jmarser.alumnospracticas_1.albunes.view.AlbunesView;
 import com.jmarser.alumnospracticas_1.login.interactor.LoginInteractor;
 import com.jmarser.alumnospracticas_1.login.interactor.LoginInteractorImpl;
 import com.jmarser.alumnospracticas_1.login.presenter.LoginPresenter;
@@ -14,6 +16,10 @@ import com.jmarser.alumnospracticas_1.login.view.LoginView;
 import com.jmarser.alumnospracticas_1.login.view.SplashActivity;
 import com.jmarser.alumnospracticas_1.login.view.SplashView;
 import com.jmarser.alumnospracticas_1.main.MainActivity;
+import com.jmarser.alumnospracticas_1.portadas.view.PortadasFragment;
+import com.jmarser.alumnospracticas_1.portadas.view.PortadasView;
+import com.jmarser.alumnospracticas_1.usuarios.view.UsuariosFragment;
+import com.jmarser.alumnospracticas_1.usuarios.view.UsuariosView;
 import com.jmarser.alumnospracticas_1.util.ErrorView;
 
 import dagger.Module;
@@ -26,6 +32,9 @@ public class AppModule {
     private SplashActivity splashActivity;
     private LoginActivity loginActivity;
     private MainActivity mainActivity;
+    private UsuariosFragment usuariosFragment;
+    private AlbunesFragment albunesFragment;
+    private PortadasFragment portadasFragment;
 
     private Context context;
 
@@ -46,6 +55,21 @@ public class AppModule {
 
     public AppModule(MainActivity mainActivity, Context context) {
         this.mainActivity = mainActivity;
+        this.context = context;
+    }
+
+    public AppModule(UsuariosFragment usuariosFragment, Context context) {
+        this.usuariosFragment = usuariosFragment;
+        this.context = context;
+    }
+
+    public AppModule(AlbunesFragment albunesFragment, Context context) {
+        this.albunesFragment = albunesFragment;
+        this.context = context;
+    }
+
+    public AppModule(PortadasFragment portadasFragment, Context context) {
+        this.portadasFragment = portadasFragment;
         this.context = context;
     }
 
@@ -76,6 +100,33 @@ public class AppModule {
             return mainActivity;
         }
         return mainActivity;
+    }
+
+    @Nullable
+    @Provides
+    public UsuariosView usuariosFragment(){
+        if(usuariosFragment != null){
+            return usuariosFragment;
+        }
+        return null;
+    }
+
+    @Nullable
+    @Provides
+    public AlbunesView albunesFragment(){
+        if(albunesFragment != null){
+            return albunesFragment;
+        }
+        return null;
+    }
+
+    @Nullable
+    @Provides
+    public PortadasView portadasFragment(){
+        if(portadasFragment != null){
+            return portadasFragment;
+        }
+        return null;
     }
 
     @Nullable
