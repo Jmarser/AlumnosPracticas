@@ -1,5 +1,7 @@
 package com.jmarser.alumnospracticas_1.login.interactor;
 
+import android.os.Handler;
+
 import javax.inject.Inject;
 
 public class LoginInteractorImpl  implements LoginInteractor{
@@ -10,10 +12,17 @@ public class LoginInteractorImpl  implements LoginInteractor{
 
     @Override
     public void tryToLogin(String email, String password, OnGetLoginCallBack callBack) {
-        if(email.equals("Correo@gmail.es") && password.equals("123456")){
-            callBack.onSuccessLogin(email, password);
-        }else{
-            callBack.onErrorLogin();
-        }
+
+        // Retrasamos la validación para simular una conexión con base de datos
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(email.equals("Correo@gmail.es") && password.equals("123456")){
+                    callBack.onSuccessLogin(email, password);
+                }else{
+                    callBack.onErrorLogin();
+                }
+            }
+        }, 3000);
     }
 }

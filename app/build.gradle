@@ -46,4 +46,7 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.46.1'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.46.1'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.44'
+
+    //Encriptar Sharedpreferences
+    implementation 'at.favre.lib:armadillo:1.0.0'
 }
