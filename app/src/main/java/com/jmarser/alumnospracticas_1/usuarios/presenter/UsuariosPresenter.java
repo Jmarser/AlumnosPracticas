@@ -1,2 +1,6 @@
-package com.jmarser.alumnospracticas_1.usuarios.presenter;public interface UsuariosPresenter {
+package com.jmarser.alumnospracticas_1.usuarios.presenter;
+
+public interface UsuariosPresenter {
+
+    void getUsers();
 }
