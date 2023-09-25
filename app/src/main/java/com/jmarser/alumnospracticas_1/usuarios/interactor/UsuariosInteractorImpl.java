@@ -2,6 +2,7 @@ package com.jmarser.alumnospracticas_1.usuarios.interactor;
 
 
 import com.jmarser.alumnospracticas_1.api.models.Post;
+import com.jmarser.alumnospracticas_1.api.models.Task;
 import com.jmarser.alumnospracticas_1.api.models.User;
 import com.jmarser.alumnospracticas_1.api.wsApi.WsApi;
 
@@ -44,21 +45,41 @@ public class UsuariosInteractorImpl implements UsuariosInteractor{
     }
 
     @Override
-    public void getPostForUser(OnGetPostsForUserCallBack callBack) {
+    public void getPosts(OnGetPostsCallBack callBack) {
         Call<List<Post>> call = wsApi.getPosts();
         call.enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
                 if(response.isSuccessful()){
-                    callBack.onSuccessGetPostsForUser(new ArrayList<Post>(response.body()));
+                    callBack.onSuccessGetPosts(new ArrayList<Post>(response.body()));
                 }else{
-                    callBack.onErrorGetPostsForUser();
+                    callBack.onErrorGetPosts();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
-                callBack.onErrorGetPostsForUser();
+                callBack.onErrorGetPosts();
+            }
+        });
+    }
+
+    @Override
+    public void getTodos(OnGetTodosCallBack callBack) {
+        Call<List<Task>> call = wsApi.getTasks();
+        call.enqueue(new Callback<List<Task>>() {
+            @Override
+            public void onResponse(Call<List<Task>> call, Response<List<Task>> response) {
+                if(response.isSuccessful()){
+                    callBack.onSuccessGetTodos(new ArrayList<Task>(response.body()));
+                }else{
+                    callBack.onErrorGetTodos();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Task>> call, Throwable t) {
+                callBack.onErrorGetTodos();
             }
         });
     }

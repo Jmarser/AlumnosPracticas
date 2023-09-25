@@ -2,6 +2,7 @@ package com.jmarser.alumnospracticas_1.api.wsApi;
 
 
 import com.jmarser.alumnospracticas_1.api.models.Post;
+import com.jmarser.alumnospracticas_1.api.models.Task;
 import com.jmarser.alumnospracticas_1.api.models.User;
 import com.jmarser.alumnospracticas_1.util.Constantes;
 
@@ -20,4 +21,9 @@ public interface WsApi {
 
     @GET(Constantes.GET_POSTS)
     Call<List<Post>> getPosts();
+
+    @GET(Constantes.GET_TODOS)
+    Call<List<Task>> getTasks();
+
+
 }
