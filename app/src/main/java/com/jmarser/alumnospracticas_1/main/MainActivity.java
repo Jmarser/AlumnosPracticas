@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 
     private ActivityMainBinding binding;
 
+
     @Inject
     SharedPreferences sharedPreferences;
 

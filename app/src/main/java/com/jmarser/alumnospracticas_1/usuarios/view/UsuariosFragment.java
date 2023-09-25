@@ -1,5 +1,6 @@
 package com.jmarser.alumnospracticas_1.usuarios.view;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -21,6 +22,7 @@ import com.jmarser.alumnospracticas_1.di.appModule.AppModule;
 import com.jmarser.alumnospracticas_1.di.appModule.SharedPreferencesModule;
 import com.jmarser.alumnospracticas_1.usuarios.adapter.UsuariosAdapter;
 import com.jmarser.alumnospracticas_1.usuarios.presenter.UsuariosPresenter;
+import com.jmarser.alumnospracticas_1.util.Constantes;
 import com.jmarser.alumnospracticas_1.util.ErrorView;
 
 import java.util.ArrayList;
@@ -85,7 +87,13 @@ public class UsuariosFragment extends Fragment implements UsuariosView, ErrorVie
 
     @Override
     public void onItemClickListener(User user) {
-        Toast.makeText(getContext(), user.getUsername(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(), user.getUsername(), Toast.LENGTH_LONG).show();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constantes.BUNDLE_USUARIO, user);
+
+        Intent intent = new Intent(getActivity(), UsuarioDetailActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @Override
