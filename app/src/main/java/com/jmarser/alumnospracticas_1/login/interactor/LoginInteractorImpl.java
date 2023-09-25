@@ -12,6 +12,7 @@ public class LoginInteractorImpl  implements LoginInteractor{
 
     @Override
     public void tryToLogin(String email, String password, OnGetLoginCallBack callBack) {
+
         // Retrasamos la validación para simular una conexión con base de datos
         new Handler().postDelayed(new Runnable() {
             @Override

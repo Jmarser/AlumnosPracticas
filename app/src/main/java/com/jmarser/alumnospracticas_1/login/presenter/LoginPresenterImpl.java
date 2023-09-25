@@ -1,5 +1,6 @@
 package com.jmarser.alumnospracticas_1.login.presenter;
 
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Patterns;
 
@@ -8,6 +9,8 @@ import androidx.annotation.Nullable;
 import com.google.android.material.textfield.TextInputLayout;
 import com.jmarser.alumnospracticas_1.login.interactor.LoginInteractor;
 import com.jmarser.alumnospracticas_1.login.view.LoginView;
+import com.jmarser.alumnospracticas_1.login.view.SplashView;
+import com.jmarser.alumnospracticas_1.util.Constantes;
 import com.jmarser.alumnospracticas_1.util.ErrorView;
 
 import javax.inject.Inject;
@@ -18,9 +21,16 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnGet
     public LoginPresenterImpl() {
     }
 
+    @Inject
+    SharedPreferences sharedPreferences;
+
     @Nullable
     @Inject
-    LoginView view;
+    LoginView loginView;
+
+    @Nullable
+    @Inject
+    SplashView splashView;
 
     @Nullable
     @Inject
@@ -61,13 +71,31 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnGet
     }
 
     @Override
+    public void splashLogin() {
+        email = sharedPreferences.getString(Constantes.INTENT_EMAIL, "");
+        password = sharedPreferences.getString(Constantes.INTENT_PASSWORD, "");
+        interactor.tryToLogin(email, password, this);
+    }
+
+    @Override
     public void onSuccessLogin(String email, String password) {
-        view.goToLogin(email, password);
+        sharedPreferences.edit().putString(Constantes.INTENT_EMAIL, email).apply();
+        sharedPreferences.edit().putString(Constantes.INTENT_PASSWORD, password).apply();
+        if(loginView != null) {
+            loginView.goToLogin(email, password);
+        }else{
+            splashView.goToMain(email, password);
+        }
     }
 
     @Override
     public void onErrorLogin() {
-        errorView.showMessageError("Error de login");
+        if(loginView != null){
+            errorView.showMessageError("Error de login");
+        }else{
+            sharedPreferences.edit().clear().apply();
+            splashView.goToLogin();
+        }
     }
 
 }

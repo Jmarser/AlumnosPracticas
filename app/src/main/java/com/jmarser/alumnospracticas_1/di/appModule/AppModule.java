@@ -11,16 +11,19 @@ import com.jmarser.alumnospracticas_1.login.presenter.LoginPresenter;
 import com.jmarser.alumnospracticas_1.login.presenter.LoginPresenterImpl;
 import com.jmarser.alumnospracticas_1.login.view.LoginActivity;
 import com.jmarser.alumnospracticas_1.login.view.LoginView;
+import com.jmarser.alumnospracticas_1.login.view.SplashActivity;
+import com.jmarser.alumnospracticas_1.login.view.SplashView;
 import com.jmarser.alumnospracticas_1.main.MainActivity;
 import com.jmarser.alumnospracticas_1.util.ErrorView;
 
 import dagger.Module;
 import dagger.Provides;
 
-@Module()
+@Module(includes = {SharedPreferencesModule.class})
 public class AppModule {
 
     /* Propiedades */
+    private SplashActivity splashActivity;
     private LoginActivity loginActivity;
     private MainActivity mainActivity;
 
@@ -29,6 +32,11 @@ public class AppModule {
     /* Constructores */
 
     public AppModule() {
+    }
+
+    public AppModule(SplashActivity splashActivity, Context context) {
+        this.splashActivity = splashActivity;
+        this.context = context;
     }
 
     public AppModule(LoginActivity loginActivity, Context context) {
@@ -42,6 +50,15 @@ public class AppModule {
     }
 
     /* Views */
+
+    @Nullable
+    @Provides
+    public SplashView splashActivity(){
+        if(splashActivity != null){
+            return splashActivity;
+        }
+        return splashActivity;
+    }
 
     @Nullable
     @Provides
@@ -64,7 +81,9 @@ public class AppModule {
     @Nullable
     @Provides
     public ErrorView provideErrorView(){
-        if(loginActivity != null){
+        if(splashActivity != null){
+            return splashActivity;
+        }else if(loginActivity != null){
             return loginActivity;
         }
         return null;
