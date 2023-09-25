@@ -18,6 +18,14 @@ import com.jmarser.alumnospracticas_1.login.view.SplashView;
 import com.jmarser.alumnospracticas_1.main.MainActivity;
 import com.jmarser.alumnospracticas_1.portadas.view.PortadasFragment;
 import com.jmarser.alumnospracticas_1.portadas.view.PortadasView;
+import com.jmarser.alumnospracticas_1.usuarios.interactor.UsuariosInteractor;
+import com.jmarser.alumnospracticas_1.usuarios.interactor.UsuariosInteractorImpl;
+import com.jmarser.alumnospracticas_1.usuarios.presenter.UserDetailsPresenter;
+import com.jmarser.alumnospracticas_1.usuarios.presenter.UserDetailsPresenterImpl;
+import com.jmarser.alumnospracticas_1.usuarios.presenter.UsuariosPresenter;
+import com.jmarser.alumnospracticas_1.usuarios.presenter.UsuariosPresenterImpl;
+import com.jmarser.alumnospracticas_1.usuarios.view.UsuarioDetailActivity;
+import com.jmarser.alumnospracticas_1.usuarios.view.UsuarioDetailsView;
 import com.jmarser.alumnospracticas_1.usuarios.view.UsuariosFragment;
 import com.jmarser.alumnospracticas_1.usuarios.view.UsuariosView;
 import com.jmarser.alumnospracticas_1.util.ErrorView;
@@ -25,7 +33,7 @@ import com.jmarser.alumnospracticas_1.util.ErrorView;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(includes = {SharedPreferencesModule.class})
+@Module(includes = {SharedPreferencesModule.class, ConnectionModule.class})
 public class AppModule {
 
     /* Propiedades */
@@ -35,6 +43,7 @@ public class AppModule {
     private UsuariosFragment usuariosFragment;
     private AlbunesFragment albunesFragment;
     private PortadasFragment portadasFragment;
+    private UsuarioDetailActivity usuarioDetailActivity;
 
     private Context context;
 
@@ -60,6 +69,11 @@ public class AppModule {
 
     public AppModule(UsuariosFragment usuariosFragment, Context context) {
         this.usuariosFragment = usuariosFragment;
+        this.context = context;
+    }
+
+    public AppModule(UsuarioDetailActivity usuarioDetailActivity, Context context) {
+        this.usuarioDetailActivity = usuarioDetailActivity;
         this.context = context;
     }
 
@@ -113,6 +127,15 @@ public class AppModule {
 
     @Nullable
     @Provides
+    public UsuarioDetailsView usuarioDetailActivity(){
+        if(usuarioDetailActivity != null){
+            return usuarioDetailActivity;
+        }
+        return null;
+    }
+
+    @Nullable
+    @Provides
     public AlbunesView albunesFragment(){
         if(albunesFragment != null){
             return albunesFragment;
@@ -136,6 +159,10 @@ public class AppModule {
             return splashActivity;
         }else if(loginActivity != null){
             return loginActivity;
+        }else if(usuariosFragment != null){
+            return usuariosFragment;
+        }else if(usuarioDetailActivity != null){
+            return usuarioDetailActivity;
         }
         return null;
     }
@@ -146,9 +173,25 @@ public class AppModule {
         return presenter;
     }
 
+    @Provides
+    public UsuariosPresenter providesUsuariosPresenter(UsuariosPresenterImpl presenter){
+        return presenter;
+    }
+
+    @Provides
+    public UserDetailsPresenter providesUsuarioDetailPresenter(UserDetailsPresenterImpl presenter){
+        return presenter;
+    }
+
     /* Interactors */
     @Provides
     public LoginInteractor providesLoginInteractor(LoginInteractorImpl interactor){
         return interactor;
     }
+
+    @Provides
+    public UsuariosInteractor providesUsuariosInteractor(UsuariosInteractorImpl interactor){
+        return interactor;
+    }
+
 }
