@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menu_user"
+        android:title="Usuarios"
+        android:icon="@drawable/ic_person"/>
+
+    <item android:id="@+id/menu_albums"
+        android:title="Albunes"
+        android:icon="@drawable/ic_album"/>
+
+    <item android:id="@+id/menu_galery"
+        android:title="Portadas"
+        android:icon="@drawable/ic_galery"/>
+
+</menu>
