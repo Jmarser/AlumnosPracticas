@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -163,7 +164,12 @@ public class UsuarioDetailActivity extends AppCompatActivity implements UsuarioD
 
     @Override
     public void onItemPostClickListener(Post post) {
-        Toast.makeText(this, "Pulsado post con id: " + post.getId(), Toast.LENGTH_LONG).show();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constantes.BUNDLE_POST, post);
+
+        Intent intent = new Intent(this, CommentsActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     /**

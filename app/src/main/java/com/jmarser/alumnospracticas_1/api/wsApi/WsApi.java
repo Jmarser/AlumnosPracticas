@@ -1,6 +1,7 @@
 package com.jmarser.alumnospracticas_1.api.wsApi;
 
 
+import com.jmarser.alumnospracticas_1.api.models.Comment;
 import com.jmarser.alumnospracticas_1.api.models.Post;
 import com.jmarser.alumnospracticas_1.api.models.Task;
 import com.jmarser.alumnospracticas_1.api.models.User;
@@ -25,6 +26,9 @@ public interface WsApi {
 
     @GET(Constantes.GET_TODOS)
     Call<List<Task>> getTasks();
+
+    @GET(Constantes.GET_COMMENTS)
+    Call<List<Comment>> getCommentsForPostId(@Query("postId") int postId);
 
 
 }
