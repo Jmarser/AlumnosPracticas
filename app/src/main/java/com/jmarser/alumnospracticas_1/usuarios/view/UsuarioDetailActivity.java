@@ -60,7 +60,7 @@ public class UsuarioDetailActivity extends AppCompatActivity implements UsuarioD
             setFields();
         }
 
-        presenter.getPosts();
+        presenter.getPosts(user.getId());
         presenter.getTodos();
 
         listenerSwipeRefresPosts();
@@ -91,7 +91,7 @@ public class UsuarioDetailActivity extends AppCompatActivity implements UsuarioD
         binding.srlUserDetails.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getPosts();
+                presenter.getPosts(user.getId());
                 binding.srlUserDetails.setRefreshing(false);
             }
         });
@@ -110,7 +110,7 @@ public class UsuarioDetailActivity extends AppCompatActivity implements UsuarioD
     private void initRecyclerPost(){
         if(listadoPosts != null && listadoPosts.size() > 0){
             userDetailsAdapter = new UserDetailsAdapter(listadoPosts, this);
-            userDetailsAdapter.filtrarPostsForUser(user);
+            //userDetailsAdapter.filtrarPostsForUser(user);
             if(userDetailsAdapter.getItemCount() > 0){
                 binding.rvDetailsUser.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
                 binding.rvDetailsUser.setAdapter(userDetailsAdapter);
@@ -187,7 +187,7 @@ public class UsuarioDetailActivity extends AppCompatActivity implements UsuarioD
 
         if(isSwipeRefresh1){
             Toast.makeText(this, "PullRefresh de posts", Toast.LENGTH_LONG).show();
-            presenter.getPosts();
+            presenter.getPosts(user.getId());
             binding.srlUserDetails.setRefreshing(false);
         }else{
             Toast.makeText(this, "PullRefresh de Tasks", Toast.LENGTH_LONG).show();

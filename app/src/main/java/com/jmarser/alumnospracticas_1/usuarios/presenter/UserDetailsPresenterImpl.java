@@ -31,8 +31,8 @@ public class UserDetailsPresenterImpl implements UserDetailsPresenter, UsuariosI
     }
 
     @Override
-    public void getPosts() {
-        interactor.getPosts(this);
+    public void getPosts(int userId) {
+        interactor.getPosts(userId, this);
     }
 
     @Override

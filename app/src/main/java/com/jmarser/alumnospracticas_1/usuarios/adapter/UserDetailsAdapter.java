@@ -16,12 +16,10 @@ import java.util.ArrayList;
 public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.PostsViewHolder>{
 
     private ArrayList<Post> listadoPosts;
-    private ArrayList<Post> listadoPostsFiltrados;
     OnItemPostClickListener itemPostClickListener;
 
     public UserDetailsAdapter(ArrayList<Post> listadoPosts, OnItemPostClickListener itemPostClickListener) {
         this.listadoPosts = listadoPosts;
-        this.listadoPostsFiltrados = new ArrayList<>(listadoPosts);
         this.itemPostClickListener = itemPostClickListener;
     }
 
@@ -35,24 +33,14 @@ public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull PostsViewHolder holder, int position) {
-        holder.bindPost(listadoPostsFiltrados.get(position));
+        holder.bindPost(listadoPosts.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return this.listadoPostsFiltrados.size();
+        return this.listadoPosts.size();
     }
 
-
-    public void filtrarPostsForUser(User user){
-        listadoPostsFiltrados.clear();
-
-        for(Post post: listadoPosts){
-            if(post.getUserId() == user.getId()){
-                listadoPostsFiltrados.add(post);
-            }
-        }
-    }
 
     class PostsViewHolder extends RecyclerView.ViewHolder{
 

@@ -10,6 +10,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * Interface que contiene todas las llamadas a la api
@@ -20,7 +21,7 @@ public interface WsApi {
     Call<List<User>> getAllUsers();
 
     @GET(Constantes.GET_POSTS)
-    Call<List<Post>> getPosts();
+    Call<List<Post>> getPostsForUserId(@Query("userId") int userId);
 
     @GET(Constantes.GET_TODOS)
     Call<List<Task>> getTasks();

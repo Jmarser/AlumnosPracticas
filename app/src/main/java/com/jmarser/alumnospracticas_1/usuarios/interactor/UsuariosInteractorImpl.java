@@ -45,8 +45,8 @@ public class UsuariosInteractorImpl implements UsuariosInteractor{
     }
 
     @Override
-    public void getPosts(OnGetPostsCallBack callBack) {
-        Call<List<Post>> call = wsApi.getPosts();
+    public void getPosts(int userId, OnGetPostsCallBack callBack) {
+        Call<List<Post>> call = wsApi.getPostsForUserId(userId);
         call.enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {

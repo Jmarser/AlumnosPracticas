@@ -16,7 +16,7 @@ public interface UsuariosInteractor {
         void onErrorServer();
     }
 
-    void getPosts(OnGetPostsCallBack callBack);
+    void getPosts(int userId, OnGetPostsCallBack callBack);
 
     interface OnGetPostsCallBack {
         void onSuccessGetPosts(ArrayList<Post> listadoPosts);
