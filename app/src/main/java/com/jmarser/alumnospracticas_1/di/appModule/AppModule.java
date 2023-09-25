@@ -20,10 +20,14 @@ import com.jmarser.alumnospracticas_1.portadas.view.PortadasFragment;
 import com.jmarser.alumnospracticas_1.portadas.view.PortadasView;
 import com.jmarser.alumnospracticas_1.usuarios.interactor.UsuariosInteractor;
 import com.jmarser.alumnospracticas_1.usuarios.interactor.UsuariosInteractorImpl;
+import com.jmarser.alumnospracticas_1.usuarios.presenter.CommentsPresenter;
+import com.jmarser.alumnospracticas_1.usuarios.presenter.CommentsPresenterImpl;
 import com.jmarser.alumnospracticas_1.usuarios.presenter.UserDetailsPresenter;
 import com.jmarser.alumnospracticas_1.usuarios.presenter.UserDetailsPresenterImpl;
 import com.jmarser.alumnospracticas_1.usuarios.presenter.UsuariosPresenter;
 import com.jmarser.alumnospracticas_1.usuarios.presenter.UsuariosPresenterImpl;
+import com.jmarser.alumnospracticas_1.usuarios.view.CommentsActivity;
+import com.jmarser.alumnospracticas_1.usuarios.view.CommentsView;
 import com.jmarser.alumnospracticas_1.usuarios.view.UsuarioDetailActivity;
 import com.jmarser.alumnospracticas_1.usuarios.view.UsuarioDetailsView;
 import com.jmarser.alumnospracticas_1.usuarios.view.UsuariosFragment;
@@ -44,6 +48,7 @@ public class AppModule {
     private AlbunesFragment albunesFragment;
     private PortadasFragment portadasFragment;
     private UsuarioDetailActivity usuarioDetailActivity;
+    private CommentsActivity commentsActivity;
 
     private Context context;
 
@@ -74,6 +79,11 @@ public class AppModule {
 
     public AppModule(UsuarioDetailActivity usuarioDetailActivity, Context context) {
         this.usuarioDetailActivity = usuarioDetailActivity;
+        this.context = context;
+    }
+
+    public AppModule(CommentsActivity commentsActivity, Context context) {
+        this.commentsActivity = commentsActivity;
         this.context = context;
     }
 
@@ -136,6 +146,15 @@ public class AppModule {
 
     @Nullable
     @Provides
+    public CommentsView commentsActivity(){
+        if(commentsActivity != null){
+            return commentsActivity;
+        }
+        return null;
+    }
+
+    @Nullable
+    @Provides
     public AlbunesView albunesFragment(){
         if(albunesFragment != null){
             return albunesFragment;
@@ -163,6 +182,8 @@ public class AppModule {
             return usuariosFragment;
         }else if(usuarioDetailActivity != null){
             return usuarioDetailActivity;
+        }else if(commentsActivity != null){
+            return commentsActivity;
         }
         return null;
     }
@@ -180,6 +201,11 @@ public class AppModule {
 
     @Provides
     public UserDetailsPresenter providesUsuarioDetailPresenter(UserDetailsPresenterImpl presenter){
+        return presenter;
+    }
+
+    @Provides
+    public CommentsPresenter providesCommentsPresenter(CommentsPresenterImpl presenter){
         return presenter;
     }
 

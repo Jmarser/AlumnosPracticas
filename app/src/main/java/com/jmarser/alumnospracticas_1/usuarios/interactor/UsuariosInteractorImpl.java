@@ -1,6 +1,7 @@
 package com.jmarser.alumnospracticas_1.usuarios.interactor;
 
 
+import com.jmarser.alumnospracticas_1.api.models.Comment;
 import com.jmarser.alumnospracticas_1.api.models.Post;
 import com.jmarser.alumnospracticas_1.api.models.Task;
 import com.jmarser.alumnospracticas_1.api.models.User;
@@ -80,6 +81,26 @@ public class UsuariosInteractorImpl implements UsuariosInteractor{
             @Override
             public void onFailure(Call<List<Task>> call, Throwable t) {
                 callBack.onErrorGetTodos();
+            }
+        });
+    }
+
+    @Override
+    public void getCommentsForPostId(int postId, OnGetCommentsCallBack callBack) {
+        Call<List<Comment>> call = wsApi.getCommentsForPostId(postId);
+        call.enqueue(new Callback<List<Comment>>() {
+            @Override
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                if(response.isSuccessful()){
+                    callBack.onSuccessGetComments(new ArrayList<Comment>(response.body()));
+                }else{
+                    callBack.onErrorGetComments();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Comment>> call, Throwable t) {
+                callBack.onErrorGetComments();
             }
         });
     }
