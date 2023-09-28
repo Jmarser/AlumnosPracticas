@@ -5,6 +5,10 @@ import android.content.Context;
 
 import androidx.annotation.Nullable;
 
+import com.jmarser.alumnospracticas_1.albunes.interactor.AlbunesInteractor;
+import com.jmarser.alumnospracticas_1.albunes.interactor.AlbunesInteractorImpl;
+import com.jmarser.alumnospracticas_1.albunes.presenter.AlbunesPresenter;
+import com.jmarser.alumnospracticas_1.albunes.presenter.AlbunesPresenterImpl;
 import com.jmarser.alumnospracticas_1.albunes.view.AlbunesFragment;
 import com.jmarser.alumnospracticas_1.albunes.view.AlbunesView;
 import com.jmarser.alumnospracticas_1.login.interactor.LoginInteractor;
@@ -184,6 +188,8 @@ public class AppModule {
             return usuarioDetailActivity;
         }else if(commentsActivity != null){
             return commentsActivity;
+        }else if(albunesFragment != null){
+            return albunesFragment;
         }
         return null;
     }
@@ -209,6 +215,11 @@ public class AppModule {
         return presenter;
     }
 
+    @Provides
+    public AlbunesPresenter providesAlbunesPresenter(AlbunesPresenterImpl presenter){
+        return presenter;
+    }
+
     /* Interactors */
     @Provides
     public LoginInteractor providesLoginInteractor(LoginInteractorImpl interactor){
@@ -217,6 +228,11 @@ public class AppModule {
 
     @Provides
     public UsuariosInteractor providesUsuariosInteractor(UsuariosInteractorImpl interactor){
+        return interactor;
+    }
+
+    @Provides
+    public AlbunesInteractor providesAlbunesInteractor(AlbunesInteractorImpl interactor){
         return interactor;
     }
 

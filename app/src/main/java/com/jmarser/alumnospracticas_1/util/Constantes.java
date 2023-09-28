@@ -20,6 +20,7 @@ public class Constantes {
     public static final String GET_COMMENTS = "comments/";
     public static final String GET_PHOTOS = "photos/";
     public static final String GET_ALBUMS = "albums/";
+    public static final String GET_ALBUMS_FOR_USER = "users/{userId}/albums";
 
 
 }
