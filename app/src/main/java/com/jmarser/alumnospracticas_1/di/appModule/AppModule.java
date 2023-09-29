@@ -5,6 +5,10 @@ import android.content.Context;
 
 import androidx.annotation.Nullable;
 
+import com.jmarser.alumnospracticas_1.albunes.interactor.AlbunesInteractor;
+import com.jmarser.alumnospracticas_1.albunes.interactor.AlbunesInteractorImpl;
+import com.jmarser.alumnospracticas_1.albunes.presenter.AlbunesPresenter;
+import com.jmarser.alumnospracticas_1.albunes.presenter.AlbunesPresenterImpl;
 import com.jmarser.alumnospracticas_1.albunes.view.AlbunesFragment;
 import com.jmarser.alumnospracticas_1.albunes.view.AlbunesView;
 import com.jmarser.alumnospracticas_1.login.interactor.LoginInteractor;
@@ -16,6 +20,10 @@ import com.jmarser.alumnospracticas_1.login.view.LoginView;
 import com.jmarser.alumnospracticas_1.login.view.SplashActivity;
 import com.jmarser.alumnospracticas_1.login.view.SplashView;
 import com.jmarser.alumnospracticas_1.main.MainActivity;
+import com.jmarser.alumnospracticas_1.portadas.interactor.PortadasInteractor;
+import com.jmarser.alumnospracticas_1.portadas.interactor.PortadasInteractorImpl;
+import com.jmarser.alumnospracticas_1.portadas.presenter.PortadasPresenter;
+import com.jmarser.alumnospracticas_1.portadas.presenter.PortadasPresenterImpl;
 import com.jmarser.alumnospracticas_1.portadas.view.PortadasFragment;
 import com.jmarser.alumnospracticas_1.portadas.view.PortadasView;
 import com.jmarser.alumnospracticas_1.usuarios.interactor.UsuariosInteractor;
@@ -184,6 +192,10 @@ public class AppModule {
             return usuarioDetailActivity;
         }else if(commentsActivity != null){
             return commentsActivity;
+        }else if(albunesFragment != null){
+            return albunesFragment;
+        }else if(portadasFragment != null){
+            return portadasFragment;
         }
         return null;
     }
@@ -209,6 +221,16 @@ public class AppModule {
         return presenter;
     }
 
+    @Provides
+    public AlbunesPresenter providesAlbunesPresenter(AlbunesPresenterImpl presenter){
+        return presenter;
+    }
+
+    @Provides
+    public PortadasPresenter providesPortadasPresenter(PortadasPresenterImpl presenter){
+        return presenter;
+    }
+
     /* Interactors */
     @Provides
     public LoginInteractor providesLoginInteractor(LoginInteractorImpl interactor){
@@ -217,6 +239,16 @@ public class AppModule {
 
     @Provides
     public UsuariosInteractor providesUsuariosInteractor(UsuariosInteractorImpl interactor){
+        return interactor;
+    }
+
+    @Provides
+    public AlbunesInteractor providesAlbunesInteractor(AlbunesInteractorImpl interactor){
+        return interactor;
+    }
+
+    @Provides
+    public PortadasInteractor providesPortadasInteractor(PortadasInteractorImpl interactor){
         return interactor;
     }
 

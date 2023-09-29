@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Error
 
         initInjection();
         initListener();
+
     }
 
     /**
