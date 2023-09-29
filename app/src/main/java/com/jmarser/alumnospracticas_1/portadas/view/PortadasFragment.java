@@ -150,7 +150,7 @@ public class PortadasFragment extends Fragment implements PortadasView, ErrorVie
                 userId = -1;
                 portadasPresenter.getAllAlbunes();
             }else{
-                userId = usuarios.get(position).getId();
+                userId = usuarios.get(position - 1).getId();
                 portadasPresenter.getAlbunesForUser(userId);
             }
         }
@@ -160,7 +160,7 @@ public class PortadasFragment extends Fragment implements PortadasView, ErrorVie
                 albumId = -1;
                 portadasPresenter.getAllPortadas();
             }else{
-                albumId = albunes.get(position).getId();
+                albumId = albunes.get(position - 1).getId();
                 portadasPresenter.getPortadasForAlbum(albumId);
             }
         }

@@ -183,7 +183,7 @@ public class AlbunesFragment extends Fragment implements AlbunesView, ErrorView,
                 userId = -1;
                 albunesPresenter.getAllAlbunes();
             }else{
-                userId = listadoUsuarios.get(position).getId();
+                userId = listadoUsuarios.get(position - 1).getId();
                 albunesPresenter.getAlbumsForUser(userId);
             }
         }
