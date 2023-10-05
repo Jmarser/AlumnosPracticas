@@ -33,6 +33,8 @@ public class UsuariosInteractorImpl implements UsuariosInteractor{
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if(response.isSuccessful()){
                     callBack.onSuccessGetUsers(new ArrayList<User>(response.body()));
+                    //callBack.onSuccessGetUsers(null);
+                    //callBack.onErrorServer();
                 }else{
                     callBack.onErrorGetUsers();
                 }

@@ -54,12 +54,16 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnGet
         if(!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             email_not_empty = true;
         }else{
+            til_email.requestFocus();
             til_email.setError("Debe indicar un correo válido");
         }
 
         if(!TextUtils.isEmpty(password)){
             pass_not_empty = true;
         }else{
+            if(email_not_empty) {
+                til_password.requestFocus();
+            }
             til_password.setError("Debe indicar el password");
         }
 

@@ -22,7 +22,7 @@ import com.jmarser.alumnospracticas_1.util.ErrorView;
 
 import javax.inject.Inject;
 
-public class LoginActivity extends AppCompatActivity implements LoginView, ErrorView, View.OnClickListener, View.OnFocusChangeListener {
+public class LoginActivity extends AppCompatActivity implements LoginView, ErrorView, View.OnClickListener {
 
     private ActivityLoginBinding binding;
 
@@ -57,8 +57,22 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Error
 
     private void initListener(){
         binding.btnLogin.setOnClickListener(this);
-        binding.tilEmail.getEditText().setOnFocusChangeListener(this);
-        binding.tilPassword.getEditText().setOnFocusChangeListener(this);
+        binding.tilEmail.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    binding.tilEmail.setError(null);
+                }
+            }
+        });
+        binding.tilPassword.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    binding.tilPassword.setError(null);
+                }
+            }
+        });
     }
 
     @Override
@@ -71,23 +85,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Error
             presenter.tryToLogin(binding.tilEmail, binding.tilPassword);
         }
 
-    }
-
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        int idView = v.getId();
-
-        if(idView == binding.tilEmail.getEditText().getId()){
-            if(hasFocus){
-                binding.tilEmail.setError(null);
-            }
-        }
-
-        if(idView == binding.tilPassword.getEditText().getId()){
-            if(hasFocus){
-                binding.tilPassword.setError(null);
-            }
-        }
     }
 
     @Override
