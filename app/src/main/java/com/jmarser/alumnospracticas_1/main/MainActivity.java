@@ -23,11 +23,15 @@ import com.jmarser.alumnospracticas_1.usuarios.view.UsuariosFragment;
 import com.jmarser.alumnospracticas_1.util.Constantes;
 import com.jmarser.alumnospracticas_1.util.NavFragment;
 
+import java.util.Stack;
+
 import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
     private ActivityMainBinding binding;
+    //Pila para recoger el historial de los fragments visitados.
+    private Stack<Fragment> fragmentStack = new Stack<>();
 
 
     @Inject
@@ -91,7 +95,36 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
                 break;
         }
 
+        //Almacenamos el fragment seleccionado en nuestra pila
+        fragmentStack.push(selectedFragment);
+        //Navegamos hacia el fragment
         NavFragment.replaceFragment(getSupportFragmentManager(), selectedFragment, selectedFragment.getClass().getName());
         return true;
+    }
+
+    /* Método con el que seleccionamos el item del menú perteneciente al fragment que estamos visitando al pulsar el botón atras */
+    private void updateBottomNavigationView(Fragment fragment){
+        int itemPosition = -1;
+        if(fragment instanceof UsuariosFragment){
+            itemPosition = 0;
+        }else if(fragment instanceof AlbunesFragment){
+            itemPosition = 1;
+        }else if(fragment instanceof PortadasFragment){
+            itemPosition = 2;
+        }
+        binding.navigationButton.setSelectedItemId(binding.navigationButton.getMenu().getItem(itemPosition).getItemId());
+    }
+
+    /* Controlamos si hay fragmentos en la pila de navegación para navegar hacia atrás o salimos de la app */
+    @Override
+    public void onBackPressed() {
+        if(!fragmentStack.isEmpty()){
+            fragmentStack.pop();
+            Fragment fragmentPrevius = fragmentStack.pop();
+            NavFragment.replaceFragment(getSupportFragmentManager(), fragmentPrevius, fragmentPrevius.getClass().getName());
+            updateBottomNavigationView(fragmentPrevius);
+        }else {
+            super.onBackPressed();
+        }
     }
 }
